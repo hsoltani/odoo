@@ -83,6 +83,7 @@ postgresql:
   ## PostgreSQL password
   ## ref: https://hub.docker.com/_/postgres/
   ##
+  postgresqlUsername: hppoc
   postgresqlPassword: password
 
   ## Enable persistence using Persistent Volume Claims
