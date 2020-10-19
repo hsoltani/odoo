@@ -65,7 +65,7 @@ externalDatabase:
   host: localhost
 
   ## non-root Username for Odoo database
-  user: postgres
+  user: hppoc
 
   ## Database password
   password: ""
