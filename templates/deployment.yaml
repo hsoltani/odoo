@@ -33,7 +33,7 @@ spec:
           value: {{ ternary "5432" .Values.externalDatabase.port .Values.postgresql.enabled | quote }}
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            secretKeyRef:079417
+            secretKeyRef:
               name: {{ ternary (include "explorer.postgresql.fullname" .) (printf "%s-%s" .Release.Name "externaldb") .Values.postgresql.enabled | quote }}
               key: {{ ternary "postgresql-password" "db-password" .Values.postgresql.enabled | quote }}
         - name: POSTGRES_DB
