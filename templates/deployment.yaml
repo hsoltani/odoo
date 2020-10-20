@@ -1,48 +1,43 @@
-apiVersion: {{ template "odoo.deployment.apiVersion" . }}
+apiVersion: {{ template "explorer.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
-  name: {{ template "odoo.fullname" . }}
+  name: {{ template "explorer.fullname" . }}
   labels:
-    app: {{ template "odoo.name" . }}
-    chart: {{ template "odoo.chart" . }}
+    app: {{ template "explorer.name" . }}
+    chart: {{ template "explorer.chart" . }}
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
 spec:
   selector:
     matchLabels:
-      app: {{ template "odoo.name" . }}
+      app: {{ template "explorer.name" . }}
       release: "{{ .Release.Name }}"
   template:
     metadata:
       labels:
-        app: {{ template "odoo.name" . }}
-        chart: {{ template "odoo.chart" . }}
+        app: {{ template "explorer.name" . }}
+        chart: {{ template "explorer.chart" . }}
         release: {{ .Release.Name | quote }}
     spec:
 {{- include "odoo.imagePullSecrets" . | indent 6 }}
       containers:
-      - name: {{ template "odoo.fullname" . }}
-        image: {{ template "odoo.image" . }}
+      - name: {{ template "explorer.fullname" . }}
+        image: {{ template "explorer.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         env:
         - name: POSTGRESQL_HOST
-          value: {{ ternary (include "odoo.postgresql.fullname" .) .Values.externalDatabase.host .Values.postgresql.enabled | quote }}
+          value: explorerdb.mynetwork.com
         - name: POSTGRESQL_USER
-          value: {{ ternary "postgres" .Values.externalDatabase.user .Values.postgresql.enabled | quote }}
+          value: hppoc
         - name: POSTGRESQL_PORT_NUMBER
           value: {{ ternary "5432" .Values.externalDatabase.port .Values.postgresql.enabled | quote }}
         - name: POSTGRESQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ ternary (include "odoo.postgresql.fullname" .) (printf "%s-%s" .Release.Name "externaldb") .Values.postgresql.enabled | quote }}
+              name: {{ ternary (include "explorer.postgresql.fullname" .) (printf "%s-%s" .Release.Name "externaldb") .Values.postgresql.enabled | quote }}
               key: {{ ternary "postgresql-password" "db-password" .Values.postgresql.enabled | quote }}
-        - name: ODOO_EMAIL
-          value: {{ .Values.odooEmail | quote }}
-        - name: ODOO_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "odoo.fullname" . }}
-              key: odoo-password
+        - name: POSTGRES_DB
+          value: fabricexplorer
         {{- if .Values.smtpHost }}
         - name: SMTP_HOST
           value: {{ .Values.smtpHost | quote }}
@@ -59,7 +54,7 @@ spec:
         - name: SMTP_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ template "odoo.fullname" . }}
+              name: {{ template "explorer.fullname" . }}
               key: smtp-password
         {{- end }}
         {{- if .Values.smtpProtocol }}
@@ -94,13 +89,13 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
-        - name: odoo-data
-          mountPath: /bitnami/odoo
+        - name: explorer-data
+          mountPath: /bitnami/explorer
       volumes:
-      - name: odoo-data
+      - name: explorer-data
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
-          claimName: {{ .Values.persistence.existingClaim | default (include "odoo.fullname" .) }}
+          claimName: {{ .Values.persistence.existingClaim | default (include "explorer.fullname" .) }}
       {{- else }}
         emptyDir: {}
       {{- end }}
