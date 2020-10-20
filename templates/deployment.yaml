@@ -38,6 +38,16 @@ spec:
               key: {{ ternary "postgresql-password" "db-password" .Values.postgresql.enabled | quote }}
         - name: POSTGRES_DB
           value: fabricexplorer
+        - name: LOG_LEVEL_APP
+          value: debug
+        - name: LOG_LEVEL_DB
+          value: debug
+        - name: LOG_LEVEL_CONSOLE
+          value: info
+        - name: LOG_CONSOLE_STDOUT
+          value: "true"
+        - name: DISCOVERY_AS_LOCALHOST
+          value: "false"
         {{- if .Values.smtpHost }}
         - name: SMTP_HOST
           value: {{ .Values.smtpHost | quote }}
@@ -63,7 +73,7 @@ spec:
         {{- end }}
         ports:
         - name: http
-          containerPort: 8080
+          containerPort: 8069
         {{- if .Values.livenessProbe.enabled }}
         livenessProbe:
           httpGet:
