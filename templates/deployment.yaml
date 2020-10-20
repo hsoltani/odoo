@@ -19,7 +19,7 @@ spec:
         chart: {{ template "explorer.chart" . }}
         release: {{ .Release.Name | quote }}
     spec:
-{{- include "odoo.imagePullSecrets" . | indent 6 }}
+{{- include "explorer.imagePullSecrets" . | indent 6 }}
       containers:
       - name: {{ template "explorer.fullname" . }}
         image: {{ template "explorer.image" . }}
