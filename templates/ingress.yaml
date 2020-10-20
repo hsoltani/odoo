@@ -2,10 +2,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ template "odoo.fullname" . }}
+  name: {{ template "explorer.fullname" . }}
   labels:
-    app: {{ template "odoo.name" . }}
-    chart: {{ template "odoo.chart" . }}
+    app: {{ template "explorer.name" . }}
+    chart: {{ template "explorer.chart" . }}
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
   annotations:
@@ -23,7 +23,7 @@ spec:
       paths:
         - path: {{ default "/" .path }}
           backend:
-            serviceName: {{ template "odoo.fullname" $ }}
+            serviceName: {{ template "explorer.fullname" $ }}
             servicePort: http
   {{- end }}
   tls:
