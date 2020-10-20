@@ -2,10 +2,10 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "odoo.fullname" . }}
+  name: {{ template "explorer.fullname" . }}
   labels:
-    app: {{ template "odoo.name" . }}
-    chart: {{ template "odoo.chart" . }}
+    app: {{ template "explorer.name" . }}
+    chart: {{ template "explorer.chart" . }}
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
 spec:
@@ -14,5 +14,5 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.size | quote }}
-  {{ include "odoo.storageClass" . }}
+  {{ include "explorer.storageClass" . }}
 {{- end -}}
