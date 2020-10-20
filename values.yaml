@@ -68,7 +68,7 @@ externalDatabase:
   user: hppoc
 
   ## Database password
-  password: ""
+  password: password
 
   ## Database port number
   port: 5432
