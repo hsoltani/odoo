@@ -131,6 +131,14 @@ spec:
             runAsUser: {{ .Values.securityContext.runAsUser }}
           {{- end }}
           env:
+            - name: TZ
+              value: "Asia/Singapore"
+            - name: DATABASE_DATABASE
+              value: fabricexplorer
+            - name: DATABASE_USERNAME
+              value: hppoc
+            - name: DATABASE_PASSWD
+              value: password
             - name: BITNAMI_DEBUG
               value: {{ ternary "true" "false" .Values.image.debug | quote }}
             - name: POSTGRESQL_PORT_NUMBER
