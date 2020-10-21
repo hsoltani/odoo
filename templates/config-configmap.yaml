@@ -9,4 +9,4 @@ metadata:
     heritage: {{ .Release.Service | quote }}
 type: Opaque
 data:
-  {{- (.Files.Glob "config/*").AsConfig | nindent 2 }}
+  {{- (.Files.Glob "config/config.json").AsConfig | nindent 2 }}
