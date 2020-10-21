@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "explorer.fullname" . }}
+  name: {{ template "explorer.fullname" . }}--connectionprofile
   labels:
     app: {{ template "explorer.name" . }}
     chart: {{ template "explorer.chart" . }}
