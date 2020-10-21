@@ -115,11 +115,15 @@ spec:
           mountPath: /bitnami/explorer
         - name: connection
           mountPath: /opt/explorer/app/platform/fabric/connection-profile
-          
+        - name: config
+          mountPath: /opt/explorer/app/platform/fabric/config.json
       volumes:
       - name: connection
         configMap:
           name: {{ template "explorer.fullname" . }}-connectionprofile
+      - name: config
+        configMap:
+          name: {{ template "explorer.fullname" . }}-config
       - name: explorer-data
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
