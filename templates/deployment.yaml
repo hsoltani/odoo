@@ -113,7 +113,13 @@ spec:
         volumeMounts:
         - name: explorer-data
           mountPath: /bitnami/explorer
+        - name: connection
+          mountPath: /opt/explorer/app/platform/fabric/connection-profile
+          
       volumes:
+      - name: connection
+        configMap:
+          name: {{ template "explorer.fullname" . }}-connectionprofile
       - name: explorer-data
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
