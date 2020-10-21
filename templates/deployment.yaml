@@ -116,7 +116,8 @@ spec:
         - name: connection
           mountPath: /opt/explorer/app/platform/fabric/connection-profile
         - name: config
-          mountPath: /opt/explorer/app/platform/fabric/config.json
+          mountPath: /opt/explorer/app/platform/fabric
+          subPath: config.json
       volumes:
       - name: connection
         configMap:
