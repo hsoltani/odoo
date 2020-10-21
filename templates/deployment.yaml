@@ -26,7 +26,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         env:
         - name: POSTGRESQL_HOST
-          value: db
+          value: odoo-postgresql
         - name: POSTGRESQL_URL
           value: postgres://hppoc:password@db:5432/fabricexplorer
         - name: POSTGRESQL_USER
