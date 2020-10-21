@@ -43,7 +43,7 @@ spec:
         - name: TZ
           value: "Asia/Singapore"
         - name: DATABASE_HOST
-          value: db
+          value: odoo-postgresql
         - name: DATABASE_DATABASE
           value: fabricexplorer
         - name: DATABASE_USERNAME
